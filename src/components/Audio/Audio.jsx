@@ -1,5 +1,6 @@
 import { Box, Container, Grid, Typography } from '@mui/material'
 import React from 'react'
+import AudioArray from './AudioArray'
 
 const Audioss = () => {
     return (
@@ -27,6 +28,16 @@ const Audioss = () => {
                             }}>
                                 Audio List
                             </Typography>
+
+                            {
+                                AudioArray.map((item) => {
+                                    return (
+                                        <>
+
+                                        </>
+                                    )
+                                })
+                            }
                             <Box>
 
                             </Box>
