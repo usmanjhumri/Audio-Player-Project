@@ -54,10 +54,15 @@ const initialState = {
     activeAudio: {},
 }
 
-const userSlice = createSlice({
-    name: "playerSlice",
+const AudioSlice = createSlice({
+    name: "AudioSlice",
     initialState,
     reducers: {
-
+        changeMusic: (state, action) => {
+            state.value = action.payload
+        }
     }
 })
+
+export const { changeMusic } = AudioSlice.actions
+export default AudioSlice.reducer
