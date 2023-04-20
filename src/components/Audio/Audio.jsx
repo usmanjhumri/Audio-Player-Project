@@ -66,12 +66,12 @@ const Audioss = () => {
                                                 }}>{item.name}</Typography>
                                                 <PlayArrowIcon sx={{
                                                     color: "#2ee3fe",
-                                                    fontSize: { md: "10em", xs: "5em" },
+                                                    fontSize: { md: "10em", xs: "20em" },
                                                     position: "absolute",
                                                     opacity: 0.8,
                                                     // zIndex: 1,
-                                                    bottom: { xs: "40px", md: "40%" },
-                                                    left: { xs: "10px", md: "10%" }
+                                                    left: "20%",
+                                                    top: "5%"
                                                 }} />
                                                 <Typography sx={{
                                                     fontSize: { md: "1.2rem", xs: "0.8rem" },
@@ -101,8 +101,8 @@ const Audioss = () => {
                                 Audio
                             </Typography>
 
-                            <Box textAlign="center">
-                                <img src={AudioSlice.img} width="40%" style={{
+                            <Box textAlign="center" marginBottom="2rem">
+                                <img src={AudioSlice.img} width="20%" style={{
                                     borderRadius: "10px",
 
                                 }} alt="" />
@@ -122,7 +122,7 @@ const Audioss = () => {
                                     width: "fit-content"
                                 }}>
                                     <ArrowLeftIcon sx={{
-                                        fontSize: "2rem",
+                                        fontSize: "3.5rem",
 
                                     }} />
                                     <audio controls style={{
@@ -132,7 +132,7 @@ const Audioss = () => {
                                     </audio>
 
                                     <ArrowRightIcon sx={{
-                                        fontSize: "2rem",
+                                        fontSize: "3.5rem",
 
                                     }} />
                                 </Box>
