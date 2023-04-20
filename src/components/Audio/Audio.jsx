@@ -27,6 +27,19 @@ const Audioss = () => {
                     <Grid container spacing={3}>
 
 
+                        <Grid item xs={12} md={12}>
+                            <Typography component='h3' sx={{
+                                fontSize: { md: "3rem", xs: "1.9rem" },
+                                color: "#4E4E4E",
+                                fontWeight: 800,
+                                margin: "1.5rem 0px",
+                                textAlign: "center"
+
+                            }}>
+                                Audio List
+                            </Typography>
+                        </Grid>
+
 
 
 
@@ -34,18 +47,9 @@ const Audioss = () => {
                             AudioArray.map((item) => {
                                 return (
                                     <>
-                                        <Typography component='h3' sx={{
-                                            fontSize: { md: "3rem", xs: "1.9rem" },
-                                            color: "#4E4E4E",
-                                            fontWeight: 800,
-                                            margin: "1.5rem 0px",
-                                            textAlign: "center"
-
-                                        }}>
-                                            Audio List
-                                        </Typography>
-
                                         <Grid item xs={12} md={3}>
+
+
 
                                             <Box sx={{
                                                 margin: "1rem 0px",
