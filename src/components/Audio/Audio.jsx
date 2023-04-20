@@ -7,7 +7,7 @@ import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import { useSelector } from 'react-redux';
 const Audioss = () => {
-    const music = useSelector((store) => store.AudioSlice)
+    const AudioSlice = useSelector((store) => store.AudioSlice)
     return (
         <>
 
@@ -87,8 +87,12 @@ const Audioss = () => {
 
 
 
+                            {/* {
+                                AudioArray.map((AudioSlice) => {
+                                    return (
+                                        <> */}
                             <Box>
-                                <img src={music.img} width="40%" style={{
+                                <img src={AudioSlice.img} width="40%" style={{
                                     borderRadius: "10px"
                                 }} alt="" />
                                 <Typography sx={{
@@ -99,14 +103,18 @@ const Audioss = () => {
                                     fontFamily: "arial",
 
                                 }}>
-                                    {music.name}
+                                    {AudioSlice.name}
                                 </Typography>
                                 <ArrowLeftIcon />
                                 <audio controls>
-                                    <source src={music.audiolink} type='audio/mp3' />
+                                    <source src={AudioSlice.audiolink} type='audio/mp3' />
                                 </audio>
                                 <ArrowRightIcon />
                             </Box>
+                            {/* </>
+                                    )
+                                })
+                            } */}
 
                         </Grid>
                     </Grid>
