@@ -7,7 +7,8 @@ import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import { useSelector } from 'react-redux';
 const Audioss = () => {
-    const AudioSlice = useSelector((store) => store.AudioSlice)
+    const AudioSlice = useSelector((store) => store.AudioSlice.value)
+    console.log(AudioSlice, ' audioslice')
     return (
         <>
 
@@ -23,26 +24,35 @@ const Audioss = () => {
                     }}>
                         Audio Player Project
                     </Typography>
-                    <Grid container>
-                        <Grid item xs={7} md={7}>
-                            <Typography component='h3' sx={{
-                                fontSize: { md: "3rem", xs: "1.9rem" },
-                                color: "#4E4E4E",
-                                fontWeight: 800,
-                                margin: "1.5rem 0px"
-                            }}>
-                                Audio List
-                            </Typography>
+                    <Grid container spacing={3}>
 
-                            {
-                                AudioArray.map((item) => {
-                                    return (
-                                        <>
+
+
+
+
+                        {
+                            AudioArray.map((item) => {
+                                return (
+                                    <>
+                                        <Typography component='h3' sx={{
+                                            fontSize: { md: "3rem", xs: "1.9rem" },
+                                            color: "#4E4E4E",
+                                            fontWeight: 800,
+                                            margin: "1.5rem 0px",
+                                            textAlign: "center"
+
+                                        }}>
+                                            Audio List
+                                        </Typography>
+
+                                        <Grid item xs={12} md={3}>
+
                                             <Box sx={{
                                                 margin: "1rem 0px",
-                                                position: "relative"
+                                                position: "relative",
+
                                             }}>
-                                                <img src={item.img} width="50%" style={{ borderRadius: "10px" }} alt="" />
+                                                <img src={item.img} width="100%" style={{ borderRadius: "10px" }} alt="" />
                                                 <Typography sx={{
                                                     fontSize: { md: "2rem", xs: "1rem" },
                                                     color: "#4e4edf",
@@ -67,15 +77,17 @@ const Audioss = () => {
                                                     fontFamily: "arial"
                                                 }}>{item.description}</Typography>
                                             </Box>
-                                        </>
-                                    )
-                                })
-                            }
-                            <Box>
+                                        </Grid>
+                                    </>
+                                )
+                            })
+                        }
 
-                            </Box>
-                        </Grid>
-                        <Grid item xs={5} md={5}>
+                        <Box>
+
+                        </Box>
+
+                        <Grid item xs={12} md={12}>
                             <Typography component='h3' sx={{
                                 fontSize: { md: "3rem", xs: "1.9rem" },
                                 color: "#4E4E4E",
@@ -85,15 +97,10 @@ const Audioss = () => {
                                 Audio
                             </Typography>
 
-
-
-                            {/* {
-                                AudioArray.map((AudioSlice) => {
-                                    return (
-                                        <> */}
-                            <Box>
+                            <Box textAlign="center">
                                 <img src={AudioSlice.img} width="40%" style={{
-                                    borderRadius: "10px"
+                                    borderRadius: "10px",
+
                                 }} alt="" />
                                 <Typography sx={{
                                     fontSize: { md: "1rem", xs: "0.5rem" },
@@ -105,16 +112,28 @@ const Audioss = () => {
                                 }}>
                                     {AudioSlice.name}
                                 </Typography>
-                                <ArrowLeftIcon />
-                                <audio controls>
-                                    <source src={AudioSlice.audiolink} type='audio/mp3' />
-                                </audio>
-                                <ArrowRightIcon />
+                                <Box sx={{
+                                    margin: "auto",
+                                    background: "#1e1e",
+                                    width: "fit-content"
+                                }}>
+                                    <ArrowLeftIcon sx={{
+                                        fontSize: "2rem",
+
+                                    }} />
+                                    <audio controls style={{
+
+                                    }}>
+                                        <source src={AudioSlice.audiolink} type="audio/mpeg" />
+                                    </audio>
+
+                                    <ArrowRightIcon sx={{
+                                        fontSize: "2rem",
+
+                                    }} />
+                                </Box>
                             </Box>
-                            {/* </>
-                                    )
-                                })
-                            } */}
+
 
                         </Grid>
                     </Grid>

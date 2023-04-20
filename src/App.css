@@ -3,3 +3,9 @@
   padding: 0;
   box-sizing: border-box;
 }
+audio::-webkit-media-controls-play-button,
+audio::-webkit-media-controls-panel {
+  background-color: #1e1e;
+  color: #3e3e3e;
+  /* margin-top: 2rem; */
+}

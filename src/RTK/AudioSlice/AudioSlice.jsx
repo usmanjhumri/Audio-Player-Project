@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import AudioArray from '../../components/Audio/AudioArray'
 
 const initialState = {
-    value: AudioArray,
+    value: AudioArray[0],
     // AudioList: [
     //     {
     //         name: "first",
