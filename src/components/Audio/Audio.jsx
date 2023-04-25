@@ -2,10 +2,11 @@ import { Box, Container, Grid, Typography } from '@mui/material'
 import React, { useRef, useState } from 'react'
 import AudioArray from './AudioArray'
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import PauseIcon from '@mui/icons-material/Pause';
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeMusic, nextItem, prevItem } from '../../RTK/AudioSlice/AudioSlice';
+import { changeMusic, nextItem, prevItem, setCurrentItem, setIsplaying } from '../../RTK/AudioSlice/AudioSlice';
 const Audioss = () => {
     const [clickId, setClickId] = useState(0)
     const AudioSlice = useSelector((store) => store.AudioSlice.value)
@@ -32,18 +33,15 @@ const Audioss = () => {
         dispatch(prevItem())
         reference.current.src = AudioSlice[currentTrack - 1].file
         reference.current.play()
-        // alert('usman')
 
-        // index > 0 && list.length > 1
-        // console.log(index, ' index on click');
+    }
+    const handleClickItem = (ind) => {
+        dispatch(setCurrentItem(ind))
     }
     const isNext = () => {
         dispatch(nextItem())
         reference.current.src = AudioSlice[currentTrack + 1].file
         reference.current.play()
-
-
-
     }
     const reloadMusic = () => {
         const audioPlayer = document.getElementById('audio')
@@ -51,8 +49,6 @@ const Audioss = () => {
         audioPlayer.play()
 
     }
-
-
     return (
         <>
 
@@ -83,14 +79,16 @@ const Audioss = () => {
                         </Grid>
 
                         {
-                            AudioArray.map((item) => {
+                            AudioArray.map((item, index) => {
                                 return (
                                     <>
                                         <Grid item xs={12} md={3}>
 
 
 
-                                            <Box onClick={(e) => setClickId(item.id)} sx={{
+                                            <Box onClick={() => handleClickItem(index)
+                                                // reference.current.src = AudioSlice.file    
+                                            } sx={{
                                                 margin: "1rem 0px",
                                                 position: "relative",
 
@@ -114,6 +112,16 @@ const Audioss = () => {
                                                     left: "20%",
                                                     top: "5%"
                                                 }} />
+                                                {/* <PauseIcon sx={{
+                                                    color: "#2ee3fe",
+                                                    fontSize: { md: "10em", xs: "20em" },
+                                                    position: "absolute",
+                                                    opacity: 0.8,
+                                                    // zIndex: 1,
+                                                    left: "20%",
+                                                    top: "5%"
+                                                }} /> */}
+
                                                 <Typography sx={{
                                                     fontSize: { md: "1.2rem", xs: "0.8rem" },
                                                     color: "#7e7ee7",
