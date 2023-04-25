@@ -4,10 +4,10 @@ import AudioArray from '../../components/Audio/AudioArray'
 const initialState = {
     value: AudioArray,
 
-    currentIndex: 0,
-    isActive: false,
-    isPlaying: false,
-    activeAudio: {},
+    // currentIndex: 0,
+    // isActive: false,
+    // isPlaying: false,
+    // activeAudio: {},
 }
 
 const AudioSlice = createSlice({

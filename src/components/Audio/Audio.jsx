@@ -1,24 +1,32 @@
 import { Box, Container, Grid, Typography } from '@mui/material'
-import React from 'react'
+import React, { useState } from 'react'
 import AudioArray from './AudioArray'
-// import { BsPlayFill } from 'react-icons/bs'
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeMusic } from '../../RTK/AudioSlice/AudioSlice';
 const Audioss = () => {
-    const AudioSlice = useSelector((store) => store.AudioSlice.value[4])
-    const list = Array.isArray(useSelector((store) => store.AudioSlice.value)) ? useSelector((store) => store.AudioSlice.value) : []
-    console.log(AudioSlice, ' audioslice')
-    console.log(list, ' music list');
+    const [clickId, setClickId] = useState(0)
+    const AudioSlice = useSelector((store) => store.AudioSlice.value)
+    console.log(AudioSlice.id, ' audioslice')
+
+    const list = Array.isArray(useSelector((store) => store.AudioSlice.value)) ?
+        useSelector((store) => store.AudioSlice.value) : []
+
     const dispatch = useDispatch()
-    const index = list.findIndex((item) => item.id === AudioSlice.id)
+    const index = list.findIndex((item) => {
+        console.log(clickId, ' id');
+        return item.id === clickId
+    })
+
+    console.log(index, ' index ');
 
     const isPrevious = () => {
         index > 0 && list.length > 1
     }
     const isNext = () => {
+        alert('next chla')
         index < list.length - 1 && list.length > 1
     }
     const reloadMusic = () => {
@@ -27,6 +35,8 @@ const Audioss = () => {
         audioPlayer.play()
 
     }
+
+
     return (
         <>
 
@@ -56,7 +66,6 @@ const Audioss = () => {
                             </Typography>
                         </Grid>
 
-
                         {
                             AudioArray.map((item) => {
                                 return (
@@ -65,11 +74,13 @@ const Audioss = () => {
 
 
 
-                                            <Box sx={{
+                                            <Box onClick={(e) => setClickId(item.id)} sx={{
                                                 margin: "1rem 0px",
                                                 position: "relative",
 
-                                            }}>
+                                            }}
+
+                                            >
                                                 <img src={item.img} width="100%" style={{ borderRadius: "10px" }} alt="" />
                                                 <Typography sx={{
                                                     fontSize: { md: "2rem", xs: "1rem" },
@@ -116,7 +127,7 @@ const Audioss = () => {
                             </Typography>
 
                             <Box textAlign="center" marginBottom="2rem">
-                                <img src={AudioSlice.img} width="20%" style={{
+                                <img src={AudioSlice[index]?.img} width="20%" style={{
                                     borderRadius: "10px",
 
                                 }} alt="" />
@@ -128,7 +139,7 @@ const Audioss = () => {
                                     fontFamily: "arial",
 
                                 }}>
-                                    {AudioSlice.name}
+                                    {AudioSlice[index]?.name}
                                 </Typography>
                                 <Box sx={{
                                     margin: "auto",
@@ -148,10 +159,8 @@ const Audioss = () => {
 
                                         }} />
                                     </div>
-                                    <audio id='audio' controls style={{
-
-                                    }}>
-                                        <source src={AudioSlice.audiolink} type="audio/mpeg" />
+                                    <audio id='audio' controls>
+                                        <source src={AudioSlice[index]?.audiolink} type="audio/mpeg" />
                                     </audio>
 
                                     <div onClick={() => {
