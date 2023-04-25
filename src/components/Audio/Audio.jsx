@@ -139,7 +139,7 @@ const Audioss = () => {
                             </Typography>
 
                             <Box textAlign="center" marginBottom="2rem">
-                                <img src={AudioSlice[index]?.img} width="20%" style={{
+                                <img src={AudioSlice[currentTrack]?.img} width="20%" style={{
                                     borderRadius: "10px",
 
                                 }} alt="" />
@@ -151,7 +151,7 @@ const Audioss = () => {
                                     fontFamily: "arial",
 
                                 }}>
-                                    {AudioSlice[index]?.name}
+                                    {AudioSlice[currentTrack]?.name}
                                 </Typography>
                                 <Box sx={{
                                     margin: "auto",
@@ -165,7 +165,7 @@ const Audioss = () => {
 
                                         }} />
                                     </div>
-                                    <audio src={AudioSlice[index]?.audiolink} ref={reference} type="audio/mpeg" controls />
+                                    <audio src={AudioSlice[currentTrack]?.audiolink} ref={reference} type="audio/mpeg" controls />
                                     {/* <audio id="audio1" preload="auto" ref={reference}>
                                         <source src={AudioSlice[currentTrack].file} type="audio/mpeg" />
                                     </audio> */}
