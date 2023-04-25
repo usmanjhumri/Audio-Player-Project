@@ -147,7 +147,7 @@ const Audioss = () => {
                                     <div onClick={() => {
                                         // alert('click')
                                         if (isPrevious()) {
-                                            dispatch(changeList(list[index - 1]))
+                                            dispatch(changeMusic(list[index - 1]))
                                             reloadMusic()
                                         }
                                     }}>
@@ -162,7 +162,9 @@ const Audioss = () => {
 
                                     <div onClick={() => {
                                         if (isNext()) {
-                                            dispatch(changeList(list[index + 1]))
+                                            setClickId(AudioSlice[index + 1])
+                                            console.log(index + 1)
+                                            dispatch(changeMusic(list[index + 1]))
                                             reloadMusic()
                                         }
                                     }}>
