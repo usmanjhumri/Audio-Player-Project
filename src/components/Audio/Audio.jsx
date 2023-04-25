@@ -5,7 +5,7 @@ import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeMusic } from '../../RTK/AudioSlice/AudioSlice';
+import { changeMusic, changeList } from '../../RTK/AudioSlice/AudioSlice';
 const Audioss = () => {
     const [clickId, setClickId] = useState(0)
     const AudioSlice = useSelector((store) => store.AudioSlice.value)
@@ -24,10 +24,12 @@ const Audioss = () => {
 
     const isPrevious = () => {
         index > 0 && list.length > 1
+        console.log(index, ' index on click');
     }
     const isNext = () => {
-        alert('next chla')
         index < list.length - 1 && list.length > 1
+        console.log(index, ' index on click');
+
     }
     const reloadMusic = () => {
         const audioPlayer = document.getElementById('audio')
@@ -112,10 +114,6 @@ const Audioss = () => {
                             })
                         }
 
-                        <Box>
-
-                        </Box>
-
                         <Grid item xs={12} md={12}>
                             <Typography component='h3' sx={{
                                 fontSize: { md: "3rem", xs: "1.9rem" },
@@ -149,7 +147,7 @@ const Audioss = () => {
                                     <div onClick={() => {
                                         // alert('click')
                                         if (isPrevious()) {
-                                            dispatch(changeMusic(list[index - 1]))
+                                            dispatch(changeList(list[index - 1]))
                                             reloadMusic()
                                         }
                                     }}>
@@ -159,13 +157,12 @@ const Audioss = () => {
 
                                         }} />
                                     </div>
-                                    <audio id='audio' controls>
-                                        <source src={AudioSlice[index]?.audiolink} type="audio/mpeg" />
-                                    </audio>
+                                    <audio src={AudioSlice[index]?.audiolink} type="audio/mpeg" controls />
+
 
                                     <div onClick={() => {
                                         if (isNext()) {
-                                            dispatch(changeMusic(list[index + 1]))
+                                            dispatch(changeList(list[index + 1]))
                                             reloadMusic()
                                         }
                                     }}>
