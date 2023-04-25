@@ -5,10 +5,12 @@ import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeMusic, changeList } from '../../RTK/AudioSlice/AudioSlice';
+import { changeMusic, changeList, forwardItem, backwordItem } from '../../RTK/AudioSlice/AudioSlice';
 const Audioss = () => {
     const [clickId, setClickId] = useState(0)
     const AudioSlice = useSelector((store) => store.AudioSlice.value)
+    const currentSong = useSelector((store) => store.AudioSlice.value)
+    console.log(currentSong, ' currentSong');
     console.log(AudioSlice.id, ' audioslice')
 
     const list = Array.isArray(useSelector((store) => store.AudioSlice.value)) ?
@@ -23,12 +25,23 @@ const Audioss = () => {
     console.log(index, ' index ');
 
     const isPrevious = () => {
-        index > 0 && list.length > 1
-        console.log(index, ' index on click');
+        // alert('usman')
+        if (currentSong) {
+            dispatch(backwordItem(currentSong))
+        } else {
+            "please select item"
+        }
+        // index > 0 && list.length > 1
+        // console.log(index, ' index on click');
     }
     const isNext = () => {
-        index < list.length - 1 && list.length > 1
-        console.log(index, ' index on click');
+        // alert('usman')
+
+        if (currentSong) {
+            dispatch(forwardItem(currentSong))
+        } else {
+            "please select item"
+        }
 
     }
     const reloadMusic = () => {
@@ -144,13 +157,7 @@ const Audioss = () => {
                                     background: "#1e1e",
                                     width: "fit-content"
                                 }}>
-                                    <div onClick={() => {
-                                        // alert('click')
-                                        if (isPrevious()) {
-                                            dispatch(changeMusic(list[index - 1]))
-                                            reloadMusic()
-                                        }
-                                    }}>
+                                    <div onClick={isPrevious}>
                                         <ArrowLeftIcon sx={{
                                             fontSize: "3.5rem",
                                             cursor: "pointer"
@@ -160,14 +167,7 @@ const Audioss = () => {
                                     <audio src={AudioSlice[index]?.audiolink} type="audio/mpeg" controls />
 
 
-                                    <div onClick={() => {
-                                        if (isNext()) {
-                                            setClickId(AudioSlice[index + 1])
-                                            console.log(index + 1)
-                                            dispatch(changeMusic(list[index + 1]))
-                                            reloadMusic()
-                                        }
-                                    }}>
+                                    <div onClick={isNext}>
                                         <ArrowRightIcon sx={{
                                             fontSize: "3.5rem",
                                             cursor: "pointer"
