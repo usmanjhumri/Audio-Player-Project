@@ -5,10 +5,28 @@ import AudioArray from './AudioArray'
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { changeMusic } from '../../RTK/AudioSlice/AudioSlice';
 const Audioss = () => {
-    const AudioSlice = useSelector((store) => store.AudioSlice.value)
+    const AudioSlice = useSelector((store) => store.AudioSlice.value[4])
+    const list = Array.isArray(useSelector((store) => store.AudioSlice.value)) ? useSelector((store) => store.AudioSlice.value) : []
     console.log(AudioSlice, ' audioslice')
+    console.log(list, ' music list');
+    const dispatch = useDispatch()
+    const index = list.findIndex((item) => item.id === AudioSlice.id)
+
+    const isPrevious = () => {
+        index > 0 && list.length > 1
+    }
+    const isNext = () => {
+        index < list.length - 1 && list.length > 1
+    }
+    const reloadMusic = () => {
+        const audioPlayer = document.getElementById('audio')
+        audioPlayer.load()
+        audioPlayer.play()
+
+    }
     return (
         <>
 
@@ -25,8 +43,6 @@ const Audioss = () => {
                         Audio Player Project
                     </Typography>
                     <Grid container spacing={3}>
-
-
                         <Grid item xs={12} md={12}>
                             <Typography component='h3' sx={{
                                 fontSize: { md: "3rem", xs: "1.9rem" },
@@ -39,8 +55,6 @@ const Audioss = () => {
                                 Audio List
                             </Typography>
                         </Grid>
-
-
 
 
                         {
@@ -121,20 +135,38 @@ const Audioss = () => {
                                     background: "#1e1e",
                                     width: "fit-content"
                                 }}>
-                                    <ArrowLeftIcon sx={{
-                                        fontSize: "3.5rem",
+                                    <div onClick={() => {
+                                        // alert('click')
+                                        if (isPrevious()) {
+                                            dispatch(changeMusic(list[index - 1]))
+                                            reloadMusic()
+                                        }
+                                    }}>
+                                        <ArrowLeftIcon sx={{
+                                            fontSize: "3.5rem",
+                                            cursor: "pointer"
 
-                                    }} />
-                                    <audio controls style={{
+                                        }} />
+                                    </div>
+                                    <audio id='audio' controls style={{
 
                                     }}>
                                         <source src={AudioSlice.audiolink} type="audio/mpeg" />
                                     </audio>
 
-                                    <ArrowRightIcon sx={{
-                                        fontSize: "3.5rem",
+                                    <div onClick={() => {
+                                        if (isNext()) {
+                                            dispatch(changeMusic(list[index + 1]))
+                                            reloadMusic()
+                                        }
+                                    }}>
+                                        <ArrowRightIcon sx={{
+                                            fontSize: "3.5rem",
+                                            cursor: "pointer"
 
-                                    }} />
+
+                                        }} />
+                                    </div>
                                 </Box>
                             </Box>
 
