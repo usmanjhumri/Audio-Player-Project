@@ -9,3 +9,6 @@ audio::-webkit-media-controls-panel {
   color: #3e3e3e;
   /* margin-top: 2rem; */
 }
+.cursor-disabled {
+  cursor: not-allowed;
+}

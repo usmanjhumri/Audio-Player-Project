@@ -4,7 +4,8 @@ import AudioArray from '../../components/Audio/AudioArray'
 const initialState = {
     value: AudioArray,
 
-    currentSong: null,
+    currentTrack: 0,
+
 }
 
 const AudioSlice = createSlice({
@@ -14,39 +15,22 @@ const AudioSlice = createSlice({
         changeMusic: (state, action) => {
             state.value = action.payload
         },
-        changeList: (state, action) => {
-            state.value = action.payload
+        nextItem(state, action) {
+
+            state.currentTrack = (state.currentTrack + 1) % state.value.length;
+            console.log('state.currentTrack', state.currentTrack)
+            state.isPlaying = true;
         },
-        forwardItem: (state, action) => {
-            const currentIndex = initialState.value.findIndex(
-                (song) => song === action.payload
-            );
 
-            if (currentIndex === -1) {
-                return;
-            }
-
-
-            const nextIndex = (currentIndex + 1) % initialState.value.length;
-
-            state.currentSong = state.value[nextIndex];
+        prevItem(state, action) {
+            state.currentTrack = state.currentTrack === 0 ? state.value.length - 1 : state.currentTrack - 1;
+            state.isPlaying = true;
         },
-        backwordItem: (state, action) => {
-            const currentIndex = initialState.value.findIndex(
-                (song) => song === action.payload
-            );
 
-            if (currentIndex === -1) {
-                return;
-            }
-
-
-            const previousInd = (currentIndex - 1) % initialState.value.length;
-
-            state.currentSong = state.value[previousInd];
-        },
     }
 })
 
-export const { changeMusic, changeList, forwardItem, backwordItem } = AudioSlice.actions
+export const { changeMusic, nextItem, prevItem } = AudioSlice.actions
 export default AudioSlice.reducer
+
+// className={`${!isNext() && 'cursor-disabled'}`}

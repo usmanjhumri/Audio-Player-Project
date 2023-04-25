@@ -1,17 +1,21 @@
 import { Box, Container, Grid, Typography } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import AudioArray from './AudioArray'
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeMusic, changeList, forwardItem, backwordItem } from '../../RTK/AudioSlice/AudioSlice';
+import { changeMusic, nextItem, prevItem } from '../../RTK/AudioSlice/AudioSlice';
 const Audioss = () => {
     const [clickId, setClickId] = useState(0)
     const AudioSlice = useSelector((store) => store.AudioSlice.value)
     const currentSong = useSelector((store) => store.AudioSlice.value)
+    const { currentTrack } = useSelector((store) => store.AudioSlice)
+
     console.log(currentSong, ' currentSong');
-    console.log(AudioSlice.id, ' audioslice')
+    console.log(AudioSlice, ' audioslice')
+
+    const reference = useRef()
 
     const list = Array.isArray(useSelector((store) => store.AudioSlice.value)) ?
         useSelector((store) => store.AudioSlice.value) : []
@@ -25,23 +29,20 @@ const Audioss = () => {
     console.log(index, ' index ');
 
     const isPrevious = () => {
+        dispatch(prevItem())
+        reference.current.src = AudioSlice[currentTrack - 1].file
+        reference.current.play()
         // alert('usman')
-        if (currentSong) {
-            dispatch(backwordItem(currentSong))
-        } else {
-            "please select item"
-        }
+
         // index > 0 && list.length > 1
         // console.log(index, ' index on click');
     }
     const isNext = () => {
-        // alert('usman')
+        dispatch(nextItem())
+        reference.current.src = AudioSlice[currentTrack + 1].file
+        reference.current.play()
 
-        if (currentSong) {
-            dispatch(forwardItem(currentSong))
-        } else {
-            "please select item"
-        }
+
 
     }
     const reloadMusic = () => {
@@ -164,8 +165,10 @@ const Audioss = () => {
 
                                         }} />
                                     </div>
-                                    <audio src={AudioSlice[index]?.audiolink} type="audio/mpeg" controls />
-
+                                    <audio src={AudioSlice[index]?.audiolink} ref={reference} type="audio/mpeg" controls />
+                                    {/* <audio id="audio1" preload="auto" ref={reference}>
+                                        <source src={AudioSlice[currentTrack].file} type="audio/mpeg" />
+                                    </audio> */}
 
                                     <div onClick={isNext}>
                                         <ArrowRightIcon sx={{
