@@ -1,5 +1,5 @@
 import { Box, Container, Grid, Typography } from '@mui/material'
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import AudioArray from './AudioArray'
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import PauseIcon from '@mui/icons-material/Pause';
@@ -29,19 +29,21 @@ const Audioss = () => {
 
     console.log(index, ' index ');
 
+    // useEffect(() => {}, [])
+
     const isPrevious = () => {
         dispatch(prevItem())
-        reference.current.src = AudioSlice[currentTrack - 1].file
+        reference.current.src = AudioSlice[currentTrack[index] - 1].file
         reference.current.play()
 
     }
-    const handleClickItem = (ind) => {
-        dispatch(setCurrentItem(ind))
-    }
     const isNext = () => {
         dispatch(nextItem())
-        reference.current.src = AudioSlice[currentTrack + 1].file
+        reference.current.src = AudioSlice[currentTrack[index] + 1].file
         reference.current.play()
+    }
+    const handleClickItem = (ind) => {
+        dispatch(setCurrentItem(ind))
     }
     const reloadMusic = () => {
         const audioPlayer = document.getElementById('audio')
@@ -146,25 +148,39 @@ const Audioss = () => {
                                 Audio
                             </Typography>
 
-                            <Box textAlign="center" marginBottom="2rem">
-                                <img src={AudioSlice[currentTrack]?.img} width="20%" style={{
-                                    borderRadius: "10px",
-
-                                }} alt="" />
-                                <Typography sx={{
-                                    fontSize: { md: "1rem", xs: "0.5rem" },
-                                    color: "#4e4edf",
-                                    textTransform: "capitalize",
-                                    fontWeight: 600,
-                                    fontFamily: "arial",
-
+                            <Box textAlign="center" marginBottom="2rem" sx={{
+                                display: "flex",
+                                alignItems: "center",
+                                background: "#3e3e3e"
+                            }}>
+                                <Box sx={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    gap: 2
                                 }}>
-                                    {AudioSlice[currentTrack]?.name}
-                                </Typography>
+                                    <img src={AudioSlice[currentTrack]?.img} width="20%" style={{
+                                        borderRadius: "10px",
+
+                                    }} alt="" />
+                                    <Typography sx={{
+                                        fontSize: { md: "1rem", xs: "0.5rem" },
+                                        color: "#4e4edf",
+                                        textTransform: "capitalize",
+                                        fontWeight: 600,
+                                        fontFamily: "arial",
+
+                                    }}>
+                                        {AudioSlice[currentTrack]?.name}
+                                    </Typography>
+                                </Box>
+
+
+
                                 <Box sx={{
                                     margin: "auto",
-                                    background: "#1e1e",
-                                    width: "fit-content"
+                                    background: "#3e3e3e",
+                                    width: "fit-content",
+                                    display: "flex"
                                 }}>
                                     <div onClick={isPrevious}>
                                         <ArrowLeftIcon sx={{

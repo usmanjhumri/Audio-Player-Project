@@ -14,16 +14,16 @@ const AudioSlice = createSlice({
     initialState,
     reducers: {
         changeMusic: (state, action) => {
-            state.value = action.payload
+            state.value = action.payload``
         },
-        nextItem(state, action) {
+        nextItem(state) {
 
             state.currentTrack = (state.currentTrack + 1) % state.value.length;
             console.log('state.currentTrack', state.currentTrack)
             state.isPlaying = true;
         },
 
-        prevItem(state, action) {
+        prevItem(state) {
             state.currentTrack = state.currentTrack === 0 ? state.value.length - 1 : state.currentTrack - 1;
             state.isPlaying = true;
         },
